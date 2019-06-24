@@ -4,11 +4,11 @@
  */
 import axios from 'axios'
 export default function ajax (url, data = {}, type = 'GET') {
-  return new Promise(function(resole, reject) {
+  return new Promise(function (resolve, reject) {
     let promise
     if (type === 'GET') {
       let dataStr = ''
-      Object.keys(data).forEach(ket => {
+      Object.keys(data).forEach(key => {
         dataStr += key + '=' + data[key] + '&'
       })
       if (data !== '') {
@@ -21,7 +21,7 @@ export default function ajax (url, data = {}, type = 'GET') {
     }
 
     promise.then(response => {
-      resole(response.data)
+      resolve(response.data)
     })
       .catch(error => {
         reject(error)
