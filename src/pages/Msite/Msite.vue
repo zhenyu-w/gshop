@@ -17,7 +17,7 @@
           <div class="swiper-slide" v-for="(categorys, index) in categorysArr" :key="index">
             <a href="javascript:" class="link_to_food" v-for="(category, index) in categorys" :key="index">
               <div class="food_container">
-                <img :src="baseImagesUrl + category.image_url">
+                <img :src="baseImageUrl + category.image_url">
               </div>
               <span>{{category.title}}</span>
             </a>
@@ -49,7 +49,7 @@ import ShopList from '../../components/ShopList/ShopList.vue'
 export default {
   data () {
     return {
-      baseImagesUrl: 'https://fuss10.elemecdn.com'
+      baseImageUrl: 'https://fuss10.elemecdn.com'
     }
   },
   components: {

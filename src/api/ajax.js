@@ -13,7 +13,7 @@ export default function ajax (url, data = {}, type = 'GET') {
       })
       if (data !== '') {
         dataStr = dataStr.substring(0, dataStr.lastIndexOf('&'))
-        url = url + '?' + dataStr
+        url = dataStr ? url + '?' + dataStr : url
       }
       promise = axios.get(url)
     } else {

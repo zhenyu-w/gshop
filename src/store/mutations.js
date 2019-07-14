@@ -1,12 +1,20 @@
 /**
  * vuex的mutations模块
  */
+import Vue from 'vue'
 import {
   RECEIVE_ADDRESS,
   RECEIVE_SHOPS,
   RECEIVE_CATEGORYS,
   RECEIVE_USER_INFO,
-  RESET_USER_INFO
+  RESET_USER_INFO,
+  RECEIVE_GOODS,
+  RECEIVE_RATINGS,
+  RECEIVE_INFO,
+  INCREMENT_FOOD_COUNT,
+  DECREMENT_FOOD_COUNT,
+  CLEAR_CART,
+  RECEIVE_SEARCH_SHOPS
 } from './mutation-types'
 
 export default {
@@ -24,5 +32,44 @@ export default {
   },
   [RESET_USER_INFO] (state) {
     state.userInfo = {}
+  },
+  [RECEIVE_GOODS] (state, {goods}) {
+    state.goods = goods
+  },
+  [RECEIVE_RATINGS] (state, {ratings}) {
+    state.ratings = ratings
+  },
+  [RECEIVE_INFO] (state, {info}) {
+    state.info = info
+  },
+  [INCREMENT_FOOD_COUNT] (state, {food}) {
+    if (!food.count) {
+      Vue.set(food, 'count', 1)
+      state.cartFoods.push(food)
+    } else {
+      food.count++
+    }
+  },
+
+  [DECREMENT_FOOD_COUNT] (state, {food}) {
+    if (food.count) {
+      food.count--
+      if (food.count === 0) {
+        state.cartFoods.splice(state.cartFoods.indexOf(food), 1)
+      }
+    }
+  },
+
+  [CLEAR_CART] (state) {
+    // 让food.count = 0
+    state.cartFoods.forEach((food, index) => {
+      food.count = 0
+    })
+    // 清空购物车
+    state.cartFoods = []
+  },
+
+  [RECEIVE_SEARCH_SHOPS] (state, {searchShops}) {
+    state.searchShops = searchShops
   }
 }
